@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>プライバシーポリシー - SmartJack</title>
+  <style>body{font-family:system-ui,-apple-system,Helvetica,Arial;margin:24px;color:#222}h1{font-size:24px}h2{font-size:18px;margin-top:18px}p{line-height:1.6}ul{line-height:1.6}
+  .top-tabs{display:flex;gap:8px;border-bottom:1px solid #e6e6e6;padding-bottom:12px;margin-bottom:16px}
+  .tab{padding:8px 12px;text-decoration:none;color:#333;border-radius:8px}
+  .tab.active{background:#0366d6;color:#fff}
+  </style>
+</head>
+<body>
+  <nav class="top-tabs">
+    <a class="tab" href="terms.html">利用規約</a>
+    <a class="tab" href="privacy.html">プライバシー</a>
+    <a class="tab" href="support.html">お問い合わせ</a>
+  </nav>
+  <h1>プライバシーポリシー</h1>
+  <p>最終更新: 2026年</p>
+
+  <h2>1. 基本方針</h2>
+  <p>当アプリ（SmartJack）は、利用者の個人情報を適切に取り扱い、保護することを重要視します。</p>
+
+  <h2>2. 収集する情報</h2>
+  <ul>
+    <li>アカウント情報（メールアドレス等）：アプリの認証・アカウント管理のために収集します（Amazon Cognito 等を使用）。</li>
+    <li>端末情報・識別子：アプリの動作確認や不具合解析のために取得する場合があります。</li>
+    <li>位置情報：ユーザーが明示的に許可した場合のみ取得します（Android BLE接続補助など）。</li>
+    <li>利用履歴・操作ログ：サービス改善のために匿名化して利用することがあります。</li>
+    <li>ローカルデータ：デバイス上に保存するローカル設定やデータ（例：`sqflite`によるローカルDB）。</li>
+  </ul>
+
+  <h2>3. 利用目的</h2>
+  <p>収集した情報は以下の目的で利用します：認証、機能提供（MQTT/AWS IoT接続補助）、サポート対応、サービス改善、法令対応。</p>
+
+  <h2>4. 第三者提供</h2>
+  <p>法令に定める場合を除き、ユーザーの同意なく第三者に提供しません。ただし、AWS等の外部サービスを用いて処理する場合があります（Amazon Web Services）。</p>
+
+  <h2>5. データ保持と削除</h2>
+  <p>ユーザーがアカウントを削除した場合、アカウントに紐づくデータは当社の定める期間内に削除されます。詳細はお問い合わせください。</p>
+
+  <h2>6. セキュリティ</h2>
+  <p>適切な技術的・組織的安全管理措置を講じますが、完全な安全性を保証するものではありません。</p>
+
+  <h2>7. 未成年の利用</h2>
+  <p>未成年の方が利用する場合、保護者の同意を得た上で利用してください。</p>
+
+  <h2>8. 外部サービス</h2>
+  <p>本アプリは以下のような外部サービスを利用しています（例）：Amazon Cognito、AWS IoT、Amplify、MQTTライブラリ、サードパーティのライブラリ。一部サービスは独自のプライバシーポリシーを持ちます。</p>
+
+  <h2>9. お問い合わせ</h2>
+  <p>プライバシーに関する問い合わせは <a href="mailto:c3310@oic.jp">c3310@oic.jp</a> までご連絡ください。</p>
+
+  <hr>
+  <p>© 2026 PuchiMagic. All rights reserved.</p>
+
+  <script>
+    (function(){
+      try{
+        const tabs = document.querySelectorAll('.top-tabs .tab');
+        const path = location.pathname.split('/').pop() || 'privacy.html';
+        tabs.forEach(a=>{
+          if(a.getAttribute('href')===path) a.classList.add('active');
+        });
+      }catch(e){console.error(e)}
+    })();
+  </script>
+</body>
+</html>
