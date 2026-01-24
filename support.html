@@ -11,11 +11,7 @@
   </style>
 </head>
 <body>
-  <nav class="top-tabs">
-    <a class="tab" href="terms.html">利用規約</a>
-    <a class="tab" href="privacy.html">プライバシー</a>
-    <a class="tab" href="support.html">お問い合わせ</a>
-  </nav>
+  <div id="site-header-placeholder"></div>
 
   <h1>お問い合わせ</h1>
   <p>ご不明点や不具合はまず操作マニュアルを確認してください：<a href="操作マニュアル.pdf">操作マニュアル（PDF）</a></p>
@@ -38,13 +34,12 @@
 
   <script>
     (function(){
-      try{
+      fetch('header.html').then(r=>r.text()).then(html=>{
+        document.getElementById('site-header-placeholder').innerHTML = html;
         const tabs = document.querySelectorAll('.top-tabs .tab');
         const path = location.pathname.split('/').pop() || 'support.html';
-        tabs.forEach(a=>{
-          if(a.getAttribute('href')===path) a.classList.add('active');
-        });
-      }catch(e){console.error(e)}
+        tabs.forEach(a=>{ if(a.getAttribute('href')===path) a.classList.add('active'); });
+      }).catch(e=>console.error(e));
     })();
   </script>
 </body>
