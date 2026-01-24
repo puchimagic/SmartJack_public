@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>プライバシーポリシー - SmartJack</title>
   <style>body{font-family:system-ui,-apple-system,Helvetica,Arial;margin:24px;color:#222}h1{font-size:24px}h2{font-size:18px;margin-top:18px}p{line-height:1.6}ul{line-height:1.6}
-  .top-tabs{display:flex;gap:8px;border-bottom:1px solid #e6e6e6;padding-bottom:12px;margin-bottom:16px}
+  .page-tabs{display:flex;gap:8px;border-bottom:1px solid #e6e6e6;padding-bottom:16px;margin-bottom:16px}
   .tab{padding:8px 12px;text-decoration:none;color:#333;border-radius:8px}
   .tab.active{background:#0366d6;color:#fff}
+  /* 長いキー名がスマホでレイアウトを崩さないように折り返しを許可 */
+  .key-name, code, kbd { overflow-wrap: anywhere; word-break: break-word; hyphens: auto; }
   </style>
 </head>
 <body>
@@ -19,16 +21,25 @@
   <p>当アプリ（SmartJack）は、利用者の個人情報を適切に取り扱い、保護することを重要視します。</p>
 
   <h2>2. 収集する情報</h2>
+  <p>※ iOS向け：App Store審査要件に伴い、当アプリは位置情報、Bluetooth、ローカルネットワーク等の利用目的をInfo.plistに明記しています。実際に情報を取得する際はユーザーの許可を求めます。</p>
   <ul>
     <li>アカウント情報（メールアドレス等）：アプリの認証・アカウント管理のために収集します（Amazon Cognito 等を使用）。</li>
     <li>端末情報・識別子：アプリの動作確認や不具合解析のために取得する場合があります。</li>
-    <li>位置情報：ユーザーが明示的に許可した場合のみ取得します（Android BLE接続補助など）。</li>
+    <li>位置情報：ユーザーが明示的に許可した場合のみ取得します（例：近くのデバイス検出や接続維持のためのBluetooth/ネットワーク補助）。
+      <ul>
+        <li><strong class="key-name">NSLocationWhenInUseUsageDescription</strong>：アプリ使用中に位置情報を使用して近くのデバイスやサービスを検出します。</li>
+        <li><strong class="key-name">NSLocationAlwaysAndWhenInUseUsageDescription</strong>：バックグラウンドでも接続維持や通知のために位置情報を使用する場合があります（必要な場合のみ）。</li>
+      </ul>
+    </li>
+    <li>Bluetooth情報：アプリは近隣デバイスの検出と接続のためにBluetoothを利用します。ユーザーの許可が必要で、iOSでは `NSBluetoothAlwaysUsageDescription` と `NSBluetoothPeripheralUsageDescription` を用途説明として Info.plist に記載しています。許可がない場合はBluetooth機能は動作しません。</li>
+    <li>ローカルネットワーク（mDNS/Bonjour）：ローカルネットワーク内のデバイス検出にmDNS/Bonjourを使用します。iOSでは `NSLocalNetworkUsageDescription` および `NSBonjourServices` を設定しており、これにより同一ネットワーク内のスマートジャック等を検出して直接通信する場合があります。</li>
     <li>利用履歴・操作ログ：サービス改善のために匿名化して利用することがあります。</li>
     <li>ローカルデータ：デバイス上に保存するローカル設定やデータ（例：`sqflite`によるローカルDB）。</li>
   </ul>
 
   <h2>3. 利用目的</h2>
   <p>収集した情報は以下の目的で利用します：認証、機能提供（MQTT/AWS IoT接続補助）、サポート対応、サービス改善、法令対応。</p>
+  <p>位置情報については、主に近隣デバイスの検出や接続の補助、必要に応じたバックグラウンド処理（例：常時接続の維持）に利用します。位置情報の取得はユーザーの明示的な許可が必要です。許可の取り消しや設定変更は端末の設定からいつでも行えます。</p>
 
   <h2>4. 第三者提供</h2>
   <p>法令に定める場合を除き、ユーザーの同意なく第三者に提供しません。ただし、AWS等の外部サービスを用いて処理する場合があります（Amazon Web Services）。</p>
@@ -54,10 +65,37 @@
   <script>
     (function(){
       fetch('header.html').then(r=>r.text()).then(html=>{
-        document.getElementById('site-header-placeholder').innerHTML = html;
+        const placeholder = document.getElementById('site-header-placeholder');
+        placeholder.innerHTML = html;
         const tabs = document.querySelectorAll('.top-tabs .tab');
         const path = location.pathname.split('/').pop() || 'privacy.html';
         tabs.forEach(a=>{ if(a.getAttribute('href')===path) a.classList.add('active'); });
+
+        const btn = document.getElementById('menu-toggle');
+        const nav = document.getElementById('nav-menu');
+        if(btn && nav){
+          btn.addEventListener('click', ()=>{
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!expanded));
+            btn.setAttribute('aria-label', expanded ? 'メニューを開く' : 'メニューを閉じる');
+            nav.classList.toggle('show');
+          });
+          document.addEventListener('click', (e)=>{
+            if(nav.classList.contains('show')){
+              const inside = nav.contains(e.target) || btn.contains(e.target);
+              if(!inside){ nav.classList.remove('show'); btn.setAttribute('aria-expanded','false'); btn.setAttribute('aria-label','メニューを開く'); }
+            }
+          });
+        }
+
+        // make header sticky spacing
+        (function(){
+          const header = placeholder.querySelector('.site-header');
+          function applyPadding(){ if(header){ document.body.style.paddingTop = header.offsetHeight + 'px'; } }
+          applyPadding();
+          window.addEventListener('resize', applyPadding);
+        })();
+
       }).catch(e=>console.error(e));
     })();
   </script>
