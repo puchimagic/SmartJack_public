@@ -260,6 +260,7 @@
     /* スマホの高さ */
     overflow: hidden;
     /* 切り抜く用 */
+    margin-top: 1.5rem;
   }
 
   .hero-impge img {
@@ -275,6 +276,7 @@
     .hero-impge {
       height: 600px;
       /* PCで薄く */
+      margin-top: 2.5rem;
     }
   }
 
@@ -714,6 +716,23 @@
   @media (max-width:768px){
     .doc-container{padding:0 14px 1.5rem}
     .content-card{padding:1rem}
+  }
+
+  /* ホーム用調整 */
+  .home-intro{display:block;padding:2rem;background:linear-gradient(180deg,#fff,#fbfdff);border-radius:14px;box-shadow:0 10px 30px rgba(12,24,40,0.06);text-align:center}
+  .home-intro h1{font-size:2rem;color:#062040;margin-bottom:0.6rem}
+  .home-intro .lead{font-size:1.05rem;color:#334456;margin-bottom:1.25rem;max-width:780px;margin-left:auto;margin-right:auto}
+  .home-cta{display:flex;gap:12px;justify-content:center;align-items:center}
+  .download-image{width:260px;max-width:42vw;border-radius:12px;box-shadow:0 6px 18px rgba(3,102,214,0.12);transition:transform .16s ease,box-shadow .16s}
+  .download-image:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(3,102,214,0.16)}
+
+  .feature-card{transition:transform .18s ease,box-shadow .18s}
+  .feature-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(12,24,40,0.08)}
+  .gallery-card h4{font-size:1rem;margin:0.45rem 0}
+
+  @media (max-width:600px){
+    .download-image{width:44vw}
+    .home-intro{padding:1.25rem}
   }
 </style>
 <script>
