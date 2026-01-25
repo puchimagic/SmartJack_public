@@ -39,6 +39,408 @@
     .nav-backdrop.show{opacity:1;pointer-events:auto}
   }
 </style>
+<style>
+/* 以下は style.css から移設したスタイル */
+/* ベース設定 */
+body {
+  margin: 0;
+  font-family: "Noto Sans JP", sans-serif;
+  background-color: #fafafa;
+  color: #222;
+  line-height: 1.7;
+}
+
+main {
+  width: 100%;
+  padding: 2rem 2rem;
+  padding-top: 120px;
+  box-sizing: border-box;
+}
+
+section {
+  max-width: 900px;
+  margin: 0 auto 4rem;
+}
+
+/* 見出し調整 */
+h1,
+h2,
+h3 {
+  color: #111;
+  line-height: 1.4;
+}
+
+h1 {
+  font-size: 2.4rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  border-bottom: 2px solid #e5e5e5;
+  padding-bottom: 0.3rem;
+  margin-top: 3rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.feature img {
+  width: 300px;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* スマホ対応 */
+@media (max-width: 768px) {
+  main {
+    padding: 1rem;
+  }
+
+  .feature {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature img {
+    width: 90%;
+  }
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.2rem;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+  .hero-impge {
+    width: 100%;
+    height: 400px;
+    /* スマホの高さ */
+    overflow: hidden;
+    /* 切り抜く用 */
+  }
+
+  .hero-impge img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 必須！ */
+    object-position: center;
+    display: block;
+  }
+
+  @media screen and (min-width: 768px) {
+    .hero-impge {
+      height: 600px;
+      /* PCで薄く */
+    }
+  }
+
+/* 画像、ヘッダーの下 */
+/* スマホ（デフォルト） */
+
+.logo img {
+  height: 90px;
+  /* 好みに合わせて調整 */
+  width: auto;
+  display: block;
+}
+
+/*メニュー初期状態*/
+.menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+  width: 100vw;
+  text-align: center;
+  padding: 1rem 0.2rem;
+  box-sizing: border-box;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  margin: 0.5rem 0;
+}
+
+.menu a {
+  color: #454343;
+  text-shadow:
+    1px 1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px -1px 0 #fff;
+  text-decoration: none;
+}
+
+/*ハンバーガーボタン*/
+.menu-icon {
+  font-size: 1.8rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+/* チェックが入ったらメニューを表示 */
+.menu-toggle:checked+.menu-icon+.menu {
+  display: block;
+}
+
+/*PC*/
+@media screen and (min-width: 768px) {
+
+  .menu {
+    display: block;
+    position: static;
+    width: auto;
+    background: transparent;
+  }
+
+  .menu ul {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .menu-toggle,
+  .menu-icon {
+    display: none;
+  }
+
+  .menu-toggle:checked+.menu-icon+.menu a:hover {
+    color: #00ffff;
+    transition: 0.3s;
+  }
+}
+
+/*ダウンロード画像*/
+.download-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.download-image {
+  width: 350px;
+  height: auto;
+  transition: transform 0.2s;
+}
+
+.download-image:hover {
+  transform: scale(1.05);
+}
+
+/*スマホ用調整*/
+@media screen and (max-width: 600px) {
+  .download-buttons {
+    flex-direction: column;
+  }
+
+  .download-image {
+    width: 90%;
+    max-width: 700px;
+  }
+}
+
+.card {
+  display: flex;
+  /* 横並びも縦並びも自由 */
+  flex-direction: column;
+  /* スマホは縦並び */
+  background: rgba(7, 255, 243, 0.114);
+  border-radius: 16px;
+  overflow: hidden;
+  color: #000;
+  text-align: center;
+  width: 90%;
+  max-width: 1400px;
+  margin: 2rem auto;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.card-text {
+  padding: 1rem;
+}
+
+/* PCでは横並び＋逆順 */
+@media screen and (min-width: 768px) {
+  .card {
+    flex-direction: row-reverse;
+    /* 画像右、テキスト左 */
+    height: auto;
+  }
+
+  .card img {
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .card-text {
+    flex: 1;
+    padding: 2rem;
+  }
+}
+
+/* 横スクロールカード */
+.card-gallery {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 1rem;
+
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.card-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+.card-gallery::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.gallery-card {
+  flex: 0 0 auto;
+  /* 横幅固定で縮まない */
+  width: 250px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  padding: 0.6rem;
+  scroll-snap-align: start;
+}
+
+.gallery-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 0.2rem;
+}
+
+.gallery-card h4 {
+  margin: 0.3rem 0 0.2rem;
+  font-size: 1.1rem;
+}
+
+.gallery-card p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.home-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.home-card img {
+  width: 100%;
+  max-width: 800px;
+  max-height: 500px;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 0;
+}
+
+
+@media (min-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* もっと広い画面は3列 */
+@media (min-width: 1100px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+
+/*Q&A*/
+#faq {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#faq h2 {
+  font-size: 1.8em;
+  text-align: center;
+  margin-bottom: 1em;
+  color: #4b4b4b;
+}
+
+.faq-item {
+  margin-bottom: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border: none;
+  padding: 16px 20px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.faq-question:hover {
+  background: #7bb7d5;
+}
+
+.faq-question::after {
+  content: "▼";
+  transition: transform 0.3s;
+}
+
+.faq-item.active .faq-question::after {
+  transform: rotate(180deg);
+}
+</style>
 <script>
   (function(){
     const btn = document.getElementById('menu-toggle');

@@ -4,14 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <title>サンプルページ</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <div class="hero-impge">
     <img src="img/IMG_3360.jpg" alt="アプリ紹介画像">
   </div>
-  <div id="header"></div>
+  <div id="site-header-placeholder"></div>
 
   <main>
     <div class="download-container">
@@ -54,30 +53,51 @@
   <div id="footer"></div>
 
   <script>
-    async function loadHTML(id, file) {
-      try {
-        const response = await fetch(file);
-        if (!response.ok) throw new Error('読み込み失敗: ' + file);
-        const html = await response.text();
-        document.getElementById(id).innerHTML = html;
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    loadHTML('header', 'header.html');
-    loadHTML('footer', 'footer.html');
+    (function(){
+      // header を読み込み、ヘッダー高さ分の余白を body に追加
+      fetch('header.html').then(r=>r.text()).then(html=>{
+        const placeholder = document.getElementById('site-header-placeholder');
+        placeholder.innerHTML = html;
+        const tabs = document.querySelectorAll('.top-tabs .tab');
+        const path = location.pathname.split('/').pop() || 'index.html';
+        tabs.forEach(a=>{ if(a.getAttribute('href')===path) a.classList.add('active'); });
 
-    const gallery = document.querySelector('.card-gallery');
-    if (gallery) {
-      gallery.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        gallery.scrollLeft += e.deltaY;
-      });
-    }
-    gallery.addEventListener('wheel', (e) => {
-      e.preventDefault(); // 縦スクロールを無効化
-      gallery.scrollLeft += e.deltaY; // 縦の動きを横に変換
-    });
+        const btn = document.getElementById('menu-toggle');
+        const nav = document.getElementById('nav-menu');
+        if(btn && nav){
+          btn.addEventListener('click', ()=>{
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!expanded));
+            btn.setAttribute('aria-label', expanded ? 'メニューを開く' : 'メニューを閉じる');
+            nav.classList.toggle('show');
+          });
+          document.addEventListener('click', (e)=>{
+            if(nav.classList.contains('show')){
+              const inside = nav.contains(e.target) || btn.contains(e.target);
+              if(!inside){ nav.classList.remove('show'); btn.setAttribute('aria-expanded','false'); btn.setAttribute('aria-label','メニューを開く'); }
+            }
+          });
+        }
+
+        (function(){
+          const header = placeholder.querySelector('.site-header');
+          function applyPadding(){ if(header){ document.body.style.paddingTop = header.offsetHeight + 'px'; } }
+          applyPadding();
+          window.addEventListener('resize', applyPadding);
+        })();
+
+      }).catch(e=>console.error(e));
+      
+      // ギャラリーの横スクロール変換
+      const gallery = document.querySelector('.card-gallery');
+      if (gallery) {
+        gallery.addEventListener('wheel', (e) => {
+          e.preventDefault();
+          gallery.scrollLeft += e.deltaY;
+        });
+      }
+
+    })();
   </script>
 </body>
 
