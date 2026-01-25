@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>ご利用ガイド</title>
+</head>
+
+<body>
+  <div id="header"></div>
+  <h1>お問い合わせ</h1>
+  <p>ご不明点や不具合はまず操作マニュアルを確認してください：<a href="操作マニュアル.pdf">操作マニュアル（PDF）</a></p>
+
+  <main id="faq">
+    <!--動画とテキスト入れる-->
+    <h2>よくある質問（FAQ）</h2>
+
+    <div class="faq-item">
+      <button class="faq-question">Q1. 位置情報はなぜ必要なのですか？</button>
+      <div class="faq-answer">
+        <p>スマートリモコンの位置情報は、自宅や外出先などの場所を判断し、自動操作（例：自宅に近づいたらエアコンをON）などに利用されます。位置情報はサーバーに保存されません。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Q2. メールアドレスはどのように使われますか？</button>
+      <div class="faq-answer">
+        <p>お問い合わせ対応のためのみ利用します。広告・通知などには一切使用いたしません。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Q3. 家電の操作履歴は保存されますか？</button>
+      <div class="faq-answer">
+        <p>アプリ内での操作履歴は端末内に一時的に保存されますが、開発者や第三者に送信されることはありません。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Q5. 利用に登録やログインは必要ですか？</button>
+      <div class="faq-answer">
+        <p>本アプリを利用するには、ユーザー登録とログインが必要です。登録いただくことで、外出先からのリモコン操作や個人設定の保存などが可能になります。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Q6. どの家電に対応していますか？</button>
+      <div class="faq-answer">
+        <p>一般的な赤外線リモコンに対応する家電（テレビ・エアコン・照明など）でご利用いただけます。機種によっては一部動作しない場合があります。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Q7. 端末の位置情報やWi-Fi情報が外部に送信されることはありますか？</button>
+      <div class="faq-answer">
+        <p>いいえ。本アプリはユーザーの位置情報・Wi-Fi情報を外部に送信することはありません。</p>
+      </div>
+    </div>
+  </main>
+  <div id="footer"></div>
+
+  <script>
+    async function loadHTML(id, file) {
+      try {
+        const response = await fetch(file);
+        if (!response.ok) throw new Error('読み込み失敗: ' + file);
+        const html = await response.text();
+        document.getElementById(id).innerHTML = html;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    loadHTML('header', 'header.html');
+    loadHTML('footer', 'footer.html');
+
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const button = item.querySelector('.faq-question');
+      button.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+
+</html>

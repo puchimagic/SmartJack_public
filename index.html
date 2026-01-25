@@ -1,75 +1,84 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>SmartJack - サポート</title>
-  <style>
-    body{font-family:system-ui,-apple-system,Helvetica,Arial;margin:24px;color:#222}
-    .page-tabs{display:flex;gap:8px;border-bottom:1px solid #e6e6e6;padding-bottom:12px;margin-bottom:16px}
-    .tab{padding:8px 12px;text-decoration:none;color:#333;border-radius:8px}
-    .tab.active{background:#0366d6;color:#fff}
-    h1{font-size:24px}
-    p{line-height:1.6}
-    a{color:#0366d6}
-  </style>
+  <meta charset="UTF-8">
+  <title>サンプルページ</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div id="site-header-placeholder"></div>
+  <div class="hero-impge">
+    <img src="img/IMG_3360.jpg" alt="アプリ紹介画像">
+  </div>
+  <div id="header"></div>
 
-  <h1>SmartJack サポートページ</h1>
-  <p>以下のリンクから利用規約・プライバシーポリシー・お問い合わせページへ移動できます。</p>
+  <main>
+    <div class="download-container">
+      <a href="" target="_bllank">
+        <img src="img/IMG_3227.png" alt="ダウンロード" class="download-image">
+      </a>
+      <a href="" target="_blank">
+        <img src="img/IMG_3228.png" alt="ダウンロード" class="download-image">
+      </a>
+    </div>
+    <div class="card">
+      <img src="img/横長.png" alt="サンプル画像">
+      <div class="card-text">
+        <h3>アプリの特徴</h3>
+        <p>このアプリではスマート家電の操作を簡単に行えます。外出先からもワンタップで制御可能です。</p>
+      </div>
+    </div>
+    <div class="card-gallery">
+      <div class="gallery-card">
+        <img src="img/スクリーンショット (40).png">
+        <p>起きる前にエアコンON。<br>快適な起床を</p>
+      </div>
 
-  <ul>
-    <li><a href="terms.html">利用規約</a></li>
-    <li><a href="privacy.html">プライバシーポリシー</a></li>
-    <li><a href="support.html">お問い合わせ</a></li>
-  </ul>
+      <div class="gallery-card">
+        <img src="img/スクリーンショット (38).png">
+        <p>カスタマイズできるボタン画面。<br>使いやすくアレンジしよう</p>
+      </div>
 
-  <hr>
-  <p>© 2026 PuchiMagic. All rights reserved.</p>
-  
+      <div class="gallery-card">
+        <img src="img/縦長.png" alt="サンプル3">
+        <p>商品の簡単な説明文</p>
+      </div>
+    </div>
+    <div class="home-card">
+      <img src="img/縦長.png" alt="サンプル3">
+      <p>はじめてでも直感的に使える</p>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
   <script>
-    (function(){
-      fetch('header.html').then(r=>r.text()).then(html=>{
-        const placeholder = document.getElementById('site-header-placeholder');
-        placeholder.innerHTML = html;
-        const tabs = document.querySelectorAll('.top-tabs .tab');
-        const path = location.pathname.split('/').pop() || 'index.html';
-        tabs.forEach(a=>{ if(a.getAttribute('href')===path) a.classList.add('active'); });
+    async function loadHTML(id, file) {
+      try {
+        const response = await fetch(file);
+        if (!response.ok) throw new Error('読み込み失敗: ' + file);
+        const html = await response.text();
+        document.getElementById(id).innerHTML = html;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    loadHTML('header', 'header.html');
+    loadHTML('footer', 'footer.html');
 
-        // Initialize hamburger menu behavior for injected header
-        const btn = document.getElementById('menu-toggle');
-        const nav = document.getElementById('nav-menu');
-        if(btn && nav){
-          btn.addEventListener('click', ()=>{
-            const expanded = btn.getAttribute('aria-expanded') === 'true';
-            btn.setAttribute('aria-expanded', String(!expanded));
-            btn.setAttribute('aria-label', expanded ? 'メニューを開く' : 'メニューを閉じる');
-            nav.classList.toggle('show');
-          });
-          document.addEventListener('click', (e)=>{
-            if(nav.classList.contains('show')){
-              const inside = nav.contains(e.target) || btn.contains(e.target);
-              if(!inside){ nav.classList.remove('show'); btn.setAttribute('aria-expanded','false'); btn.setAttribute('aria-label','メニューを開く'); }
-            }
-          });
-        }
-
-          // make header sticky spacing: set body padding-top to header height
-          (function(){
-            const header = placeholder.querySelector('.site-header');
-            function applyPadding(){
-              if(header){
-                document.body.style.paddingTop = header.offsetHeight + 'px';
-              }
-            }
-            applyPadding();
-            window.addEventListener('resize', applyPadding);
-          })();
-
-      }).catch(e=>console.error(e));
-    })();
+    const gallery = document.querySelector('.card-gallery');
+    if (gallery) {
+      gallery.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        gallery.scrollLeft += e.deltaY;
+      });
+    }
+    gallery.addEventListener('wheel', (e) => {
+      e.preventDefault(); // 縦スクロールを無効化
+      gallery.scrollLeft += e.deltaY; // 縦の動きを横に変換
+    });
   </script>
 </body>
+
 </html>
