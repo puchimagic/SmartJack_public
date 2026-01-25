@@ -440,6 +440,15 @@ h2 {
 .faq-item.active .faq-question::after {
   transform: rotate(180deg);
 }
+
+/* FAQ の回答を折りたたむ */
+.faq-answer {
+  display: none;
+  padding: 0 20px 16px;
+}
+.faq-item.active .faq-answer {
+  display: block;
+}
 </style>
 <script>
   (function(){

@@ -58,6 +58,8 @@
     </div>
   </main>
   <div id="footer"></div>
+  <hr>
+  <p>© 2026 PuchiMagic. All rights reserved.</p>
 
   <script>
     (function(){
@@ -99,8 +101,11 @@
       const faqItems = document.querySelectorAll('.faq-item');
       faqItems.forEach(item => {
         const button = item.querySelector('.faq-question');
+        if (!button) return;
+        button.setAttribute('aria-expanded', 'false');
         button.addEventListener('click', () => {
-          item.classList.toggle('active');
+          const active = item.classList.toggle('active');
+          button.setAttribute('aria-expanded', String(active));
         });
       });
 
