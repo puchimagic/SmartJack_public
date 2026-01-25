@@ -246,12 +246,56 @@ h2 {
 /*ダウンロード画像*/
 .download-container {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 6rem auto 3rem;
   padding: 0 20px;
   display: flex;
   gap: 16px;
   justify-content: center;
   align-items: center;
+}
+
+/* Intro / Features for index.html */
+.intro {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  background: linear-gradient(180deg, rgba(250,250,250,0.6), rgba(255,255,255,0.6));
+}
+.intro h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.2rem;
+  color: #0b2340;
+}
+.intro p.lead {
+  margin: 0 auto;
+  max-width: 740px;
+  color: #3b4a59;
+  font-size: 1.05rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1rem 2rem;
+}
+.feature-card{
+  background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06);overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:1rem;text-align:center
+}
+.feature-card img{width:100%;height:auto;max-height:200px;object-fit:contain;border-radius:8px;margin-bottom:0.75rem}
+.feature-card h4{margin:0.4rem 0;font-size:1.05rem;color:#0b2340}
+.feature-card p{margin:0;color:#556677;font-size:0.95rem}
+
+.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:#0366d6;color:#fff;text-decoration:none;font-weight:600}
+
+@media (max-width:900px){
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+  .features-grid{grid-template-columns:1fr}
+  .feature-card img{height:auto;max-height:200px}
+  .intro h1{font-size:1.6rem}
 }
 
 .download-image {
@@ -295,6 +339,11 @@ h2 {
 .card img {
   width: 100%;
   height: auto;
+  max-height: 240px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  align-self: center;
 }
 
 .card-text {
@@ -307,12 +356,17 @@ h2 {
     flex-direction: row-reverse;
     /* 画像右、テキスト左 */
     height: auto;
+    align-items: center;
+    gap: 1.25rem;
   }
 
   .card img {
-    width: 50%;
+    width: 45%;
+    flex: 0 0 45%;
     height: auto;
-    object-fit: cover;
+    max-height: 240px;
+    object-fit: contain;
+    object-position: center;
   }
 
   .card-text {
