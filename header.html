@@ -7,7 +7,7 @@
       </a>
     </div>
     <button id="menu-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="メニューを開く" class="menu-toggle">☰</button>
-    <nav id="nav-menu" class="top-tabs" style="margin-left:12px;">
+    <nav id="nav-menu" class="top-tabs">
       <a class="tab" href="index.html">トップ</a>
       <a class="tab" href="guide.html">ご利用ガイド</a>
 
@@ -28,7 +28,7 @@
   .menu-toggle{display:none;background:transparent;border:0;font-size:22px;line-height:1;padding:8px;cursor:pointer}
   /* Small screens: slide-in side panel */
   @media (max-width:600px){
-    .top-tabs{display:flex;gap:8px;align-items:flex-start;flex-direction:column;position:fixed;top:64px;left:0;height:calc(100% - 64px);width:260px;background:#fff;padding:16px 8px;transform:translateX(-100%);transition:transform .28s ease;z-index:2000}
+    .top-tabs{display:flex;gap:8px;align-items:flex-start;flex-direction:column;position:fixed;top:64px;left:0;height:calc(100% - 64px);width:260px;background:#fff;padding:16px 8px;transition:transform .28s ease;z-index:2000;box-sizing:border-box;transform-origin:left center;--menu-width:260px;transform:translateX(calc(-1 * var(--menu-width)));}
     .top-tabs.show{transform:translateX(0)}
     .top-tabs .tab{display:block;padding:8px 12px;height:auto;border-radius:6px}
     .menu-toggle{display:block;z-index:3000}
@@ -200,7 +200,6 @@ h2 {
 }
 
 .menu-toggle {
-  display: none;
 }
 
 /* チェックが入ったらメニューを表示 */
@@ -216,6 +215,16 @@ h2 {
     position: static;
     width: auto;
     background: transparent;
+  }
+
+  .top-tabs { margin-left: 12px; }
+  /* Desktop: タブをヘッダーの高さに合わせて縦中央揃え */
+  .top-tabs .tab {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .menu ul {
