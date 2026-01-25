@@ -687,6 +687,34 @@
   .faq-item.active .faq-answer {
     display: block;
   }
+  /* ドキュメントページ用の共通スタイル */
+  .doc-container{
+    max-width:1100px;
+    margin:1.5rem auto;
+    padding:0 1rem 2.5rem;
+    box-sizing:border-box;
+  }
+  .content-card{
+    background:#fff;
+    border-radius:12px;
+    padding:1.25rem 1.25rem;
+    box-shadow:0 8px 24px rgba(12,24,40,0.06);
+    border:1px solid rgba(16,24,40,0.04);
+  }
+  .prose{color:#222;line-height:1.8;font-size:1rem}
+  .prose h1{font-size:1.6rem;margin-top:0;margin-bottom:0.75rem}
+  .prose h2{font-size:1.15rem;margin-top:1.25rem;margin-bottom:0.5rem}
+  .prose p{margin:0 0 0.9rem}
+  .prose ul{margin:0 0 1rem;padding-left:1.25rem}
+  .prose a{color:#0366d6;text-decoration:none}
+  .prose a:hover{text-decoration:underline}
+  .page-actions{display:flex;gap:8px;align-items:center;margin-bottom:1rem}
+  .back-link{color:#556677;text-decoration:none;padding:6px 10px;border-radius:8px;background:rgba(0,0,0,0.02)}
+
+  @media (max-width:768px){
+    .doc-container{padding:0 14px 1.5rem}
+    .content-card{padding:1rem}
+  }
 </style>
 <script>
   (function () {
